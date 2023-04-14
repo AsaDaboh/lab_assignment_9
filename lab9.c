@@ -1,5 +1,9 @@
+//Asa Daboh
+//
 #include <stdio.h>
+#include <stdlib.h>
 
+#define tablesize 31 // defines the table size for the hash table 
 // RecordType
 struct RecordType
 {
@@ -11,13 +15,16 @@ struct RecordType
 // Fill out this structure
 struct HashType
 {
+    struct RecordType *table;
+   
+   int size;
 
 };
 
 // Compute the hash function
 int hash(int x)
 {
-
+return x%tablesize;
 }
 
 // parses input file to an integer array
@@ -77,9 +84,15 @@ void displayRecordsInHash(struct HashType *pHashArray, int hashSz)
 {
 	int i;
 
+    printf("Hash Table Records");
+    printf("===================");
 	for (i=0;i<hashSz;++i)
 	{
 		// if index is occupied with any records, print all
+       if(pHashArray != NULL )
+            printf("\nIndex %d -> %d, %c, %d -> %d ->", i, pHashArray -> table -> id, pHashArray-> table -> name, pHashArray->table -> order, pHashArray -> table -> id );
+           
+
 	}
 }
 
@@ -90,5 +103,12 @@ int main(void)
 
 	recordSz = parseData("input.txt", &pRecords);
 	printRecords(pRecords, recordSz);
+
+    struct HashType *table;
+    table = (struct HashType*)calloc(tablesize, sizeof(struct HashType));
+
+    displayRecordsInHash(table, recordSz);
 	// Your hash implementation
+
+    free(pRecords);
 }
